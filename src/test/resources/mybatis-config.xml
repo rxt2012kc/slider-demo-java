@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>     
+<!DOCTYPE configuration     
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"     
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <typeAliases>  
+        <!--给实体类起一个别名 user,... -->  
+        <package name="com.xindun.server.database.entity"/>
+    </typeAliases>  
+    <!--数据源配置  这块用 mysql数据库 -->  
+    <environments default="development">  
+    	<!--  mybatis pool
+        <environment id="development">  
+            <transactionManager type="jdbc" />  
+            
+            <dataSource type="POOLED">  
+                <property name="driver" value="com.mysql.jdbc.Driver" />  
+                <property name="url" value="jdbc:mysql://10.2.45.150:3306/moby" />  
+                <property name="username" value="moby" />  
+                <property name="password" value="moby123" />  
+            </dataSource>  
+        </environment>  
+        -->
+        <!-- c3p0连接池 -->
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="com.xindun.server.database.dao.C3P0DataSourceFactory">
+				<property name="driverClass" value="com.mysql.jdbc.Driver" />
+				<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/bank?characterEncoding=UTF-8" />
+				<property name="user" value="xindun" />
+				<property name="password" value="xindun123" />
+				<property name="idleConnectionTestPeriod" value="60" />
+                <property name="initialPoolSize" value="3"/>
+				<property name="maxPoolSize" value="20" />
+                <property name="minPoolSize" value="3" />
+                <property name="acquireIncrement" value="5" />
+				<property name="maxIdleTime" value="600" />
+                <property name="maxIdleTimeExcessConnections" value="1200" />
+                <property name="maxConnectionAge" value="27000"/>
+				<property name="preferredTestQuery" value="SELECT 1" />
+                <property name="maxStatements" value="500" />
+                <property name="maxStatementsPerConnection" value="50" />
+                <property name="numHelperThreads" value="5" />
+                <property name="checkoutTimeout" value="3000" />
+			</dataSource>
+		</environment>
+    </environments>  
+    <mappers>  
+        <!--userMapper.xml装载进来  同等于把“dao”的实现装载进来 -->  
+         <mapper resource="mybatis/Sysconfig.xml" /> 
+         <mapper resource="mybatis/app_info.xml" />
+         <mapper resource="mybatis/app_tradeinfo.xml" />
+         <mapper resource="mybatis/user_account.xml" />
+         <!-- <package name="mybatis.*"/> -->
+    </mappers>  
+</configuration>   
